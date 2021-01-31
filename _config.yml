@@ -1,5 +1,5 @@
-title: Long Haul
-description: Long Form Jekyll theme built with SASS / COMPASS / SUSY
+title: Minusovo
+description: Blog about Azure, Azure AD, DevOps and Security around all of it 
 
 url: http://minusovo.github.com/
 baseurl: "/"
@@ -12,7 +12,7 @@ permalink: blog/:title/
 markdown: kramdown
 highlighter: rouge
 plugins: [jekyll-paginate]
-paginate: 5
+paginate: 10
 
 navigation:
   - title: Home
@@ -23,13 +23,11 @@ navigation:
     url: /contact
 
 social:
-  github: brianmaierjr
-  twitter: brianmaierjr
-  facebook: brianmaierjr
-  email: brimaidesigns@gmail.com
-  linkedin: brianmaierjr
+  github: minusovo
+  email: astashin@outlook.com
+  linkedin: alexey-a-b5591832
 
-google_analytics: "UA-58263416-1"
+#google_analytics: "UA-58263416-1"
 
 disqus:
-    shortname: brianmaierjr
+    shortname: minusovo
