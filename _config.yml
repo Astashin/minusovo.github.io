@@ -2,7 +2,7 @@ title: Minusovo
 description: Blog about Azure, Azure AD, DevOps and Security around all of it 
 
 url: http://minusovo.github.com/
-baseurl: "/"
+baseurl: ""
 paginate_path: "blog/page:num/"
 permalink: blog/:title/
 
