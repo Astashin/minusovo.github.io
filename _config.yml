@@ -1,7 +1,7 @@
 title: Alexey's Techblog
 description: Blog about Azure, Azure AD, DevOps and Security around all of it 
 
-url: http://minusovo.github.com/
+url: http://blog.astashin.com/
 baseurl: ""
 paginate_path: "blog/page:num/"
 permalink: blog/:title/
@@ -30,4 +30,4 @@ social:
 #google_analytics: "UA-58263416-1"
 
 disqus:
-    shortname: minusovo
+    shortname: jagstang
