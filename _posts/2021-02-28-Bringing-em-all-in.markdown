@@ -1,17 +1,24 @@
 ﻿---
 layout: post
-title:  "Bringing ‘em all in. Part 1: Large enterprise in single Azure AD tenant"
+title:  "Bringing ‘em all in: designing single Azure AD tenant for large enterprises. Part 1"
 date:   2021-02-28
-description: On last Friday of January 2020, Microsoft announced general availability Azure AD Connect cloud sync feature. For us as very early adopters of this new synchronization service this was not something very special
+description: In January 2021 Microsoft announced general availability of Azure AD Connect cloud sync feature. For us, the earliest adopters of this new synchronization service, it was not something too special
+categories:
+  - Azure AD
+tags:
+  - Azure AD
+  - OKTA
+  - Identity Management
+  - High-level
 ---
 
-<p class="intro"><span class="dropcap">O</span>n last Friday of January 2020, Microsoft announced general availability Azure AD Connect cloud sync feature. For us as very early adopters of this new synchronization service this was not something very special: we started to use it in production in 2020 shortly after it preview release. After one year we brought more than 20 companies and ten thousand user accounts to the central Azure AD tenant. That was expectedly challenging journey as it usually happens when adopting a product in its early stages. In this blog series I describe all possible problems and solutions, share my thoughts experience and automation code that hopefully can help other to implement the similar project too.</p>
+<p class="intro"><span class="dropcap">I</span>n January 2021 Microsoft announced general availability of Azure AD Connect cloud sync feature. For us, the earliest adopters of this new synchronization service, it was not something too special: we started to use it in production in 2020 shortly after it preview release. After one year we brought more than 20 companies and ten thousand user accounts to the central Azure AD tenant. That was expectedly challenging journey as it usually happens when adopting a product in its early stages. In this blog series I describe all possible problems and solutions, share my thoughts experience and automation code that hopefully can help other to implement the similar project too.</p>
 
 #### Intro 
 Imagine, you are mid to enterprise level company in 2019 who heavily on Microsoft products on its on-premises systems. You are not just one monolithic firm but a holding containing dozens of other smaller companies. That could be due to merge and acquisition processes in the past or any other reasons. You have most of workloads on-premises and extensive use of Windows OS. Active Directory is a standard identity service and you have multiple AD forests in different companies. Mixture of different networks with overlapping IP ranges prevents to establish trusts and establish collaboration across companies. Now, you are about to adopt different SaaS solutions or online services like Microsoft to improve collaboration in the cloud. It is not the secret: the only way to do achieve this was to configure synchronization using AD Connect. But after some research, you come across the
 [following limitation](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/plan-connect-topologies#multiple-forests-multiple-sync-servers-to-one-azure-ad-tenant).
 <figure>
-	<img src="{{ '/assets/img/2021-02-28/ADConnectUsnsupported.png' | prepend: site.baseurl }}" alt=""> 
+	<img src="{{ '/assets/img/2021/2021-02-28/ADConnectUsnsupported.png' | prepend: site.baseurl }}" alt=""> 
 	<figcaption>Multiple forests, multiple sync servers to one Azure AD tenant</figcaption>
 </figure>
 
@@ -23,14 +30,14 @@ This is somehow expected if you recall what AD Connect historically is. ADC, pre
 If you had looked at Gartner quadrant in 2019 or before, then you probably would have chosen OKTA as much better and more reliable option.
 
 <figure>
-	<img src="{{ '/assets/img/2021-02-28/OKTA2019.png' | prepend: site.baseurl }}" alt="" width="500"> 
+	<img src="{{ '/assets/img/2021/2021-02-28/OKTA2019.png' | prepend: site.baseurl }}" alt="" width="500"> 
 	<figcaption>Gartner Magic Quadrant for Access Management 2019</figcaption>
 </figure>
 
-(BTW, probably releasing AAD Connect cloud sync helped Microsoft to finally take the top place in Gartner Magic Quadrant 2020!)
+Probably releasing AAD Connect cloud sync helped Microsoft to finally take the top place in Gartner Magic Quadrant 2020!
 
 <figure>
-	<img src="{{ '/assets/img/2021-02-28/OKTA2020.png' | prepend: site.baseurl }}" alt="" width="500"> 
+	<img src="{{ '/assets/img/2021/2021-02-28/OKTA2020.png' | prepend: site.baseurl }}" alt="" width="500"> 
 	<figcaption>Gartner Magic Quadrant for Access Management 2020</figcaption>
 </figure>
 
@@ -44,7 +51,7 @@ As we already used Microsoft 365 services in several companies with some amount 
 Well, We took the risky second option. Honestly, I regretted few times about this decision when the sync service was at its early stages. But after all that was a successful project and as a result, you are now reading this. This is what we’ve finally come to.
 
 <figure>
-	<img src="{{ '/assets/img/2021-02-28/AADDiagram.PNG' | prepend: site.baseurl }}" alt="" width="800"> 
+	<img src="{{ '/assets/img/2021/2021-02-28/AADDiagram.PNG' | prepend: site.baseurl }}" alt="" width="800"> 
 	<figcaption>Synchronization and provisioning architecture</figcaption>
 </figure>
 
