@@ -6,3 +6,5 @@ node_modules
 .jekyll-cache/
 .jekyll-cache/*
 _posts/~*
+startdebug.ps1
+.jekyll-metadata

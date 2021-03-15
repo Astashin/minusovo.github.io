@@ -11,7 +11,7 @@ tags:
   - Low-level
 ---
 
-<p class="intro"><span class="dropcap">S</span>hortly after release AAD Connect Cloud Sync did not allow to perform one very important thing: modifying attribute mappings in Azure Portal.</p>
+<p class="intro"><span class="dropcap">S</span>hortly after its release back in end of 2019 AAD Connect Cloud Sync did not allow to perform one very important thing: modifying attribute mappings in Azure Portal.</p>
 
 The only supported way to change attribute mapping is direct modification of sync job schema, as it was described at that time in the official documentation:
 *The cloud provisioning configuration creates a service principal. The service principal is visible in the Azure portal. You should not modify the attribute mappings using the service principal experience in the Azure portal. This is not supported.*
