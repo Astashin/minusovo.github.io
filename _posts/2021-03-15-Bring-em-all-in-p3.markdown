@@ -65,7 +65,7 @@ To summarize:
 
 ##### 2. AccountEnabled
 
-* Sometimes you need to synchronize objects that normally should not sign-in to Azure AD. If such accounts have "sharedmailbox" in extensionAttribute1, you can use the following expression to disable them in Azure AD
+* Sometimes you need to synchronize objects that normally should not sign-in to Azure AD. If such accounts have "sharedmailbox" in `extensionAttribute1`, you can use the following expression to disable them in Azure AD
 
   {%- highlight ruby -%}
   IIF(ToLower([extensionAttribute1], )="sharedmailbox", "false", IIF(IsPresent([userAccountControl]), IIF(BitAnd([userAccountControl], 2)="0", "True", "False"), Not([accountDisabled])))
@@ -73,7 +73,7 @@ To summarize:
 
 ##### 3. UserPrincipalName
 
-We will describe later in more details why configuring attribute mapping expressions for UserPrincipalName (UPN) might be very important. Below are examples how to form UPN in AAD that should have `firstname.lastname@domain.com` format
+We will describe later in more details why configuring attribute mapping expressions for `UserPrincipalName` (UPN) might be very important. Below are examples how to form UPN in AAD that should have `firstname.lastname@domain.com` format
 
 * Form UPN in Azure AD as prefix of UPN in AD and domain registered in Azure AD
 
@@ -87,7 +87,7 @@ We will describe later in more details why configuring attribute mapping express
 IIF(IsPresent([mail]), Append(Item(Split([mail], "@"), 1), "@domain.com"), Append(Replace([sAMAccountName], "_", , , ".", , ), "@domain.com"))
   {%- endhighlight -%}
 
-* If ExtensionsAttribute1 stores information if a user object is in fact shared mailbox, add company-mbx to sAMAccountName to avoid duplicate UPN attribute conflicts. If it is not shared mailbox, form UPN with first and last name attributes
+* If `ExtensionsAttribute1` stores information if a user object is in fact shared mailbox, add company-mbx to `sAMAccountName` to avoid duplicate UPN attribute conflicts. If it is not shared mailbox, form UPN with first and last name attributes
 
   {%- highlight ruby -%}
 IIF([ExtensionAttribute1]="SharedMailbox", Append([sAMAccountName], ".company-mbx@domain.com"),  Append(ToLower(NormalizeDiacritics(StripSpaces(Join(".", [givenName], [sn])))), "@domain.com"))
