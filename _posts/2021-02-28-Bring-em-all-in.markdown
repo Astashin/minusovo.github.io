@@ -1,6 +1,6 @@
 ﻿---
 layout: post
-title:  "Bring ‘em all in: designing single Azure AD tenant for large enterprises. Part 1"
+title:  "Single Azure AD tenant for large enterprises, part 1: Bring 'em all in"
 date:   2021-02-28
 description: In January 2021 Microsoft announced general availability of Azure AD Connect cloud sync feature. For us, the earliest adopters of this new synchronization service, it was not something too special
 categories:
@@ -64,7 +64,7 @@ This diagram was taken from [Protecting Microsoft 365 from on-premises attacks](
 
 This would wrap up first introduction part of this blog series. Next will be more dedicated to solving issues from technical perspective. So, tech Azure AD funs, stay tune! 
 
-##### In the parts of "Bring ‘em all in" blog series we will cover the following topics:
+##### In the next parts of this blog series we will cover the following topics:
 
 * Understanding AAD Connect cloud sync schema and extending attributes
 * Dealing with chaos in Active Directory

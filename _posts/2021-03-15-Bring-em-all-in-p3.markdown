@@ -1,6 +1,6 @@
 ﻿---
 layout: post
-title:  "Bring ‘em all in: designing single Azure AD tenant for large enterprises. Part 3"
+title:  "Single Azure AD tenant for large enterprises, part 3: Azure AD Connect Cloud Sync Attribute Mapping"
 date:   2021-03-06
 description: In this part of our series we will talk about some considerations before enabling AAD Connect cloud sync for AD
 categories:

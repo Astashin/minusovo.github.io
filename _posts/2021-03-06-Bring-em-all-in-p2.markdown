@@ -1,8 +1,8 @@
 ﻿---
 layout: post
-title:  "Bring ‘em all in: designing single Azure AD tenant for large enterprises. Part 2"
+title:  "Single Azure AD tenant for large enterprises, part 2: AD Connect Cloud Sync Job Schema"
 date:   2021-03-06
-description: In this part of our series we will discover sync job schema and explain why we would need to change it
+description: In this part of this blog series we will discover sync job schema and explain why we would need to change it
 categories:
   - Azure AD
 tags:
@@ -10,6 +10,7 @@ tags:
   - AAD Connect Cloud Sync
   - Low-level
 ---
+
 
 <p class="intro"><span class="dropcap">S</span>hortly after its release back in end of 2019 AAD Connect Cloud Sync did not allow to perform one very important thing: modifying attribute mappings in Azure Portal.</p>
 
@@ -43,7 +44,10 @@ You also can use a method described in [Understand the Azure AD schema article](
 After you know service principal ID and job id we can query and edit sync schema using Graph API. For this:
 
 1. Get current sync job scheme using Graph API by sending GET request (om [Graph Explorer](https://developer.microsoft.com/graph/graph-explorer), Postman, or similar tool) to  URL of the following format: 
-`https://graph.microsoft.com/beta/servicePrincipals/<ServicePrincipalId>/synchronization/jobs/AD2AADProvisioning.<jobId>/schema`
+
+{%- highlight ruby -%}
+GET https://graph.microsoft.com/beta/servicePrincipals/<ServicePrincipalId>/synchronization/jobs/AD2AADProvisioning.<jobId>/schema
+{%- endhighlight -%}
 
 2. The request will return schema in JSON format. Copy it to a text editor that simplifies editing JSON (Visual Studio Code, Notepad++, etc.)
 
