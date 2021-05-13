@@ -1,6 +1,6 @@
 ﻿---
 layout: post
-title:  "Single Azure AD tenant for large enterprises, part 3: Azure AD Viral tenants"
+title:  "Single Azure AD tenant for large enterprises, part 4: Azure AD Viral tenants"
 date:   2021-05-04
 description: In this part of our series we will talk about viral tenants and external users
 categories:
