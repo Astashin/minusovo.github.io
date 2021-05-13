@@ -6,7 +6,7 @@ title: Contact Me
 <div id="contact">
   <h1 class="pageTitle">Contact Me</h1>
   <div class="contactContent">
-    <p class="intro">You can always approach me by email or contacting in LinkedIn. Alternatively, you can drop me message here</p>
+    <p class="intro">You can always approach me by sending email or contacting in LinkedIn</p>
    </div>
   <form action="https://formspree.io/f/xzbklera" method="POST">
     <label for="name">Name</label>

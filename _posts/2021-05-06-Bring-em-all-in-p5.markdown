@@ -129,12 +129,17 @@ Stores service principal secrets to read information from source (remote) tenant
 GET https://graph.microsoft.com/v1.0/groups/delta?$select=members&$filter=id eq 'sync_group_id'
   {%- endhighlight -%}
 
+![Delta query](\assets\img\2021\2021-05-06\Invitation-Worker1.png)
+
 - Actions are taken depending on conditions:
  a. If user is added to the sync group and doesn't exist in destination tenant, invitation is performed
  b. If user is added to the sync group and exists in destination tenant in Deleted Items container, account is restored
  c. If user is added to the sync group and exists in destination tenant as guest, account is converted to member
  d. If user is removed from the sync group and exists in destination tenant, external account is removed
 - Each invited users are added to DeltaLinkUsers table. Entry for removed user is deleted from the table respectively
+
+![Invitation](\assets\img\2021\2021-05-06\Invitation-Worker5.png)
+
 - Delta query for sync group is saved to DeltaLinkGroups
 - For each user object removed to sync group it deletes user to destination tenant
 - Worker returns logging information for main workflow as output
@@ -148,6 +153,8 @@ GET https://graph.microsoft.com/v1.0/groups/delta?$select=members&$filter=id eq 
   {%- highlight ruby -%}
 GET https://graph.microsoft.com/v1.0/users?$select=synced_attributes&$filter=id eq 'user_id'
   {%- endhighlight -%}
+
+![Attribute Sync](\assets\img\2021\2021-05-06\attribute-sync3.png)
 
 - Attributes returned by query are written for object in destination tenant. If there were no changes, delta query returns empty output
 - If there are more than two proxyAddresses, temporarily set mail in destination tenant to be proxy address from remote tenant 
@@ -170,7 +177,8 @@ PUT https://graph.microsoft.com/v1.0/users<user id>/manager/$ref
 4. In our use case, it was required to synchronize this attribute too, for most other scenarios it is probably not required. Problem is, Graph API does not support writing proxyAddress attributes. Trick is, Graph API allows to write mail attribute (although standard AzureAD PS module does not allow this). Azure AD automatically adds proxy address for each address in mail attribute. So, as a workaround, attribute sync automation temporarily set mail attribute in destination tenant for each for proxy address attribute of synced user object in source tenant. As a last step primary SMTP address is specified as mail attribute. Here problem is, proxyAddress then not removed if mail is changed. That is, synced user object can potentially have more proxy addresses than in source tenant.
 5.	If full invitation sync is required for a tenant, respective entry should be removed manually from DeltaLinkGroups table. This is similar to initiating full sync in AD Connect or AD Connect cloud sync. Full sync also causes all delta links in DeltaLinkUsers table to be rewritten. Changing list of synced attributes requires removing all delta links from DeltaLinkUsers tables for a tenant, so performing manual sync would be a solution.
 6.	If user object is assigned privileged role (directly or via membership in role enabled group) modifying attributes in destination tenant will fail as managed identity does not have enough permissions for this (only global administrator or similar role can modify attributes of other admins). For this reason, particular user objects could be excluded from attribute sync in table.
-7. Delta queries does not immediately return data for newly created Azure AD objects. From my experience, it takes around 30 seconds after creation. Usually, it is not a problem for automation. However, there are two issues detected when delta links:
+7. By default, loops in Logic Apps run in parallel. Using variables inside loops can cause unpredictable results to be stored in these variables. This behavior is described [in Microsoft documentation](https://docs.microsoft.com/en-us/azure/logic-apps/logic-apps-control-flow-loops#foreach-loop-sequential). This might be unexpected before you face this first time. As it's often required to store some intermediate data somewhere, using Data Compose action can be used as a workaround. This trick is used for both invitation and attribute sync workflows because running each cycle sequentially would dramatically slow down the sync engine performance.
+8. Delta queries does not immediately return data for newly created Azure AD objects. From my experience, it takes around 30 seconds after creation. Usually, it is not a problem for automation. However, there are two issues detected when delta links:
 
 -	After this [recorded incident](https://status.azure.com/en-us/status/history) in March 2021 some delta links returned empty results even when new objects were added to sync scope: **RCA - Authentication errors across multiple Microsoft services (Tracking ID LN01-P8Z)** 
 -	We also experienced sporadic issue with delta queries: *"The requested media type is not supported. The allowed values are json with minimalmetadata"*. Luckily, this problem occured very rarely.

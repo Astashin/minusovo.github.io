@@ -12,7 +12,7 @@ title: About Me
 	<ul>
 		<li>Azure Active directory as identity and access management service</li>
   		<li>Azure platform and infrastructure services</li>
-		  <li>(Serverless) automation </li>
+		  <li>Automation</li>
 		  <li>Active Directory Security</li>
       <li>Offensive security, ethical hacking, bug biunty hunting</li>
   	</ul>
