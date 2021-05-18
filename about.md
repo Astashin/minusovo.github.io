@@ -14,6 +14,6 @@ title: About Me
   		<li>Azure platform and infrastructure services</li>
 		  <li>Automation</li>
 		  <li>Active Directory Security</li>
-      <li>Offensive security, ethical hacking, bug biunty hunting</li>
+      <li>Offensive security, ethical hacking, bug bounty hunting</li>
   	</ul>
 </div>
