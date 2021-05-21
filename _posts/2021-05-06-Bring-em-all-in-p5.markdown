@@ -132,10 +132,10 @@ GET https://graph.microsoft.com/v1.0/groups/delta?$select=members&$filter=id eq 
 ![Delta query](\assets\img\2021\2021-05-06\Invitation-Worker1.png)
 
 - Actions are taken depending on conditions:
- a. If user is added to the sync group and doesn't exist in destination tenant, invitation is performed
- b. If user is added to the sync group and exists in destination tenant in Deleted Items container, account is restored
- c. If user is added to the sync group and exists in destination tenant as guest, account is converted to member
- d. If user is removed from the sync group and exists in destination tenant, external account is removed
+ 1. If user is added to the sync group and doesn't exist in destination tenant, invitation is performed
+ 2. If user is added to the sync group and exists in destination tenant in Deleted Items container, account is restored
+ 3. If user is added to the sync group and exists in destination tenant as guest, account is converted to member
+ 4. If user is removed from the sync group and exists in destination tenant, external account is removed
 - Each invited users are added to DeltaLinkUsers table. Entry for removed user is deleted from the table respectively
 
 ![Invitation](\assets\img\2021\2021-05-06\Invitation-Worker5.png)
@@ -160,10 +160,10 @@ GET https://graph.microsoft.com/v1.0/users?$select=synced_attributes&$filter=id 
 - If there are more than two proxyAddresses, temporarily set mail in destination tenant to be proxy address from remote tenant 
 - Get direct reports for each user in remote tenant using GraphAPI query:
   {%- highlight ruby -%}
-GET https://graph.microsoft.com/v1.0/users/<user id>/directReports?$select=id
+GET https://graph.microsoft.com/v1.0/users/user_id/directReports?$select=id
   {%- endhighlight -%}
 - Sets manager attribute in destination tenant using GraphAPI query:
-PUT https://graph.microsoft.com/v1.0/users<user id>/manager/$ref
+PUT https://graph.microsoft.com/v1.0/usersuser_id/manager/$ref
 - Workflow returns logging information for main workflow as output
 
 ##### 5. **Main workflow**
@@ -181,6 +181,6 @@ PUT https://graph.microsoft.com/v1.0/users<user id>/manager/$ref
 8. Delta queries does not immediately return data for newly created Azure AD objects. From my experience, it takes around 30 seconds after creation. Usually, it is not a problem for automation. However, there are two issues detected when delta links:
 
 -	After this [recorded incident](https://status.azure.com/en-us/status/history) in March 2021 some delta links returned empty results even when new objects were added to sync scope: **RCA - Authentication errors across multiple Microsoft services (Tracking ID LN01-P8Z)** 
--	We also experienced sporadic issue with delta queries: *"The requested media type is not supported. The allowed values are json with minimalmetadata"*. Luckily, this problem occured very rarely.
+-	We also experienced sporadic issue with delta queries: *"The requested media type is not supported. The allowed values are json with minimalmetadata"*. Luckily, this problem occurred very rarely.
 
 In the next chapter I'll describe configuration of each component, describe workflows' logic in more details, describe prerequisites and installation instruction. 

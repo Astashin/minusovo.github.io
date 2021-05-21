@@ -47,7 +47,7 @@ You need Azure subscription linked to an Azure AD tenant that is a destination f
 
 #### User managed identities
 
-Create user assigned managed identity [in Azure Portal](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/how-to-manage-ua-identity-portal) or any other method. Then assign application [User.ReadWrite.All](https://docs.microsoft.com/en-us/graph/permissions-reference#user-permissions) Graph API permission. Granting permissions for managed identity (which is Azure managed service principal) is not available in the  Portal but could be done using PowerShell script ([reference](https://docs.microsoft.com/en-us/azure/app-service/scenario-secure-app-access-microsoft-graph-as-app?tabs=azure-powershell%2Ccommand-line#grant-access-to-microsoft-graph)):
+Create user assigned managed identity [in Azure Portal](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/how-to-manage-ua-identity-portal) or any other method. Then assign application [User.ReadWrite.All](https://docs.microsoft.com/en-us/graph/permissions-reference#user-permissions) and [Group.Read.All](https://docs.microsoft.com/en-us/graph/permissions-reference#group-permissions)Graph API permission. Granting permissions for managed identity (which is Azure managed service principal) is not available in the  Portal but could be done using PowerShell script ([reference](https://docs.microsoft.com/en-us/azure/app-service/scenario-secure-app-access-microsoft-graph-as-app?tabs=azure-powershell%2Ccommand-line#grant-access-to-microsoft-graph)):
 
  {%- highlight ruby -%}
 $MSIDisplayName = "Azure-AD-Automation-MSI"
@@ -79,7 +79,7 @@ To edit rows and manage tables in Azure storage accounts, the free [Azure Storag
 
 Five tables need to be created manually:
 
-##### **ApplicationConfiguration.** 
+##### **ApplicationConfiguration** 
 Contains general configuration for our sync engine. Data is filled ny administrator manually. 
 Main purpose of this table is to avoid using variable constants in Logic Apps. It contains only one entry with two properties
 
@@ -90,7 +90,7 @@ Main purpose of this table is to avoid using variable constants in Logic Apps. I
 |     PartitionKey                      |     String    |     Various value                                                                   |
 |     RowKey                            |     String    |     Various value                                                                   |
 
-##### **DeltaLinkGroups.** 
+##### **DeltaLinkGroups** 
 Storage of delta links for sync groups in remote tenants. Workflows fill data inside.
 
 When synchronization is running, delta links for sync groups are stored in the DeltaLinkGroups table. The table has the following properties
@@ -103,7 +103,7 @@ When synchronization is running, delta links for sync groups are stored in the D
 
 To start initial full sync for a particular tenant, remove corresponding entity from DeltaLinkGroups. This will initiate invitation workflow to go through every member in sync group and rewrite delta links in DeltaLinkUsers.
 
-##### **DeltaLinkUsers.** 
+##### **DeltaLinkUsers** 
 Storage of delta links of synced user objects in destination tenant. Workflows fill data inside.
 DeltaLinkUsers has the following properties:
 
@@ -117,21 +117,21 @@ DeltaLinkUsers has the following properties:
 
 To manually initiate full attribute sync for a particular user, DeltaLink property can be removed from the table. **Important:** not the whole entity but only the property should be removed. Removing complete row for a user would stop attribute sync for user until invitation workflow restores the record.
 
-##### **Logs.** 
+##### **Logs** 
 Stores logs of automation. Workflows fill data inside.
 
 |     Property        |     Type      |     Description                                                                                                                |
 |---------------------|---------------|--------------------------------------------------------------------------------------------------------------------------------|
 |     PartitionKey    |     String    |     Source tenant   Id                                                                                                         |
 |     RowKey          |     String    |     Random GUID                                                                                                                |
-|     Aciton          |     String    |     Action   performed by invitation or attribute sync workflows                                                               |
+|     Action          |     String    |     Action   performed by invitation or attribute sync workflows                                                               |
 |     DateTime        |     String    |     Date and time   in UTC of an action. Timestamp property is built-in property and shows when   data was written to table    |
 |     ErrorMessage    |     String    |     Error or   informational message                                                                                           |
 |     ObjectId        |     String    |     User Object   Id in destination tenant                                                                                     |
 |     TenantName      |     String    |     Name of the   tenant as appears in RemoteTenantConfiguration table                                                         |
 |     UserMail        |     String    |     Email used to   invite user                                                                                                |
 
-##### **RemoteTenantConfiguration.** 
+##### **RemoteTenantConfiguration** 
 List of all tenants the engine synchronizes user objects from. Most important sync engine configuration is stored here. Data is filled by administrator manually before starting the sync.
 
 |     Property                  |     Type       |     Description                                                                                                                                                         |
