@@ -2,7 +2,7 @@
 layout: post
 title:  "Single Azure AD tenant for large enterprises, part 5: Sync between Azure AD tenants"
 date:   2021-05-06
-description: In this part of our series we will talk about solving establishing "trusts" between Azure AD tenants
+description: In this part of our series we will talk about how to establish "trusts" between Azure AD tenants
 categories:
   - Azure AD
 tags:
