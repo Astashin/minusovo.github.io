@@ -107,7 +107,7 @@ Worth mentioning, user objects could be added to administrative units even if th
 
 #### User managed identities
 
-Create user managed identities. This time we need **Group.Read.All** and **AdministrativeUnit.ReadWrite.All**([reference] (https://docs.microsoft.com/en-us/graph/permissions-reference#administrative-units-permissions)) application permissions. Note, granting write permissions to resource group where managed identity is located gives full permissions on administrative units in Azure AD tenant, so Azure IAM permissions should be assigned carefully.
+Create user managed identities. This time we need **Group.Read.All** and **AdministrativeUnit.ReadWrite.All**([reference](https://docs.microsoft.com/en-us/graph/permissions-reference#administrative-units-permissions)) application permissions. Note, granting write permissions to resource group where managed identity is located gives full permissions on administrative units in Azure AD tenant, so Azure IAM permissions should be assigned carefully.
 
  {%- highlight ruby -%}
 $MSIDisplayName = "Azure-AD-Automation-MSI"
