@@ -1,7 +1,7 @@
 ﻿---
 layout: post
 title:  "Single Azure AD tenant for large enterprises, part 6: B2B sync engine in details"
-date:   2021-05-06
+date:   2021-05-12
 description: In this part I will explain configuration of Logic Apps based B2B sync engine described in the previous part in more details
 categories:
   - Azure AD

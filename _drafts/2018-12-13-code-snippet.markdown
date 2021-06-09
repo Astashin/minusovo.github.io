@@ -12,8 +12,8 @@ Jekyll also offers powerful support for code snippets:
 {
     "NameSpaceType": "Managed",
     "Login": "name@yourdomain.com",
-    "DomainName": "systec-services.com",
-    "FederationBrandName": "Systec & Services GmbH",
+    "DomainName": "yourdomain.com",
+    "FederationBrandName": "Services GmbH",
     "TenantBrandingInfo": null,
     "cloud_instance_name": "microsoftonline.com"
 }
