@@ -12,7 +12,7 @@ tags:
 ---
 
 {:refdef: style="text-align: center;"}
-![Title image]({{ site.baseimg }}/assets/img/Bring-em-all-in-p7.jpg)
+![Title image]({{ site.baseimg }}\assets\img\2021\2021-05-20\title.jpg)
 {: refdef}
 
 <p class="intro"><span class="dropcap">I</span>n this part we will talk about permission delegation challenges in single Azure AD tenant and how to solve them with administrative units</p>
