@@ -134,7 +134,6 @@ Parameters:
 Each stage therefore consists of two tasks that first deploy and then assign policies.
 
 ![Release pipeline stage 1](\assets\img\2021\2021-06-17\ADO-Release-Pipeline1.png)
-![Release pipeline stage 2](\assets\img\2021\2021-06-17\ADO-Release-Pipeline2.png)
 
 * Task **Publish Policy Set to Test/Prod environment**
 
