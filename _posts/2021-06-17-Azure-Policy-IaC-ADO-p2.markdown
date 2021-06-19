@@ -199,4 +199,6 @@ Here is the sequence of publishing policy definitions and performing assignments
 
 
 #### Script sources
-**Scripts for both pipelines could be found in [Azure Policies repo of my GitHub](https://github.com/Astashin/Azure-Governance/tree/main/_scripts).** 
+Scripts for both pipelines could be found in [Azure Policies repo of my GitHub](https://github.com/Astashin/Azure-Governance/tree/main/_scripts).
+
+Azure DevOps project with repository and pipelines is made public and [accessible using a link](https://dev.azure.com/Astashin/Azure%20Policies).
